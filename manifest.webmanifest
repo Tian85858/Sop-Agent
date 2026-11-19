@@ -1,0 +1,9 @@
+{
+  "name": "个人SOP Agent",
+  "short_name": "SOP Agent",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#eff7f3",
+  "theme_color": "#a8d8c8",
+  "lang": "zh-CN"
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人SOP Agent Cloud</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>个人SOP Agent</h1>
+      <p>云端同步版 · 手机电脑都能用</p>
+    </div>
+    <button id="logoutBtn" class="ghost hidden">退出</button>
+  </header>
+
+  <main class="page">
+    <section id="authView" class="card">
+      <h2>登录 / 注册</h2>
+      <p class="muted">使用 Supabase 云端同步。第一次使用会自动注册账号。</p>
+      <label>邮箱</label>
+      <input id="emailInput" type="email" placeholder="you@example.com" autocomplete="email" />
+      <label>密码</label>
+      <input id="passwordInput" type="password" placeholder="至少 6 位" autocomplete="current-password" />
+      <div class="actions">
+        <button id="loginBtn">登录</button>
+        <button id="signupBtn" class="secondary">注册</button>
+      </div>
+      <p id="authMsg" class="msg"></p>
+    </section>
+
+    <section id="appView" class="hidden">
+      <section class="grid hero">
+        <div class="card">
+          <h2>一句话记录</h2>
+          <p class="muted">先进入云端 inbox，后续由 Agent 归类到库存、任务、健康、学习、决策等模块。</p>
+          <div class="quick-input">
+            <input id="quickInput" placeholder="例：买了D3+K2一瓶，1000IU，明天开始吃" />
+            <button id="quickSaveBtn">保存</button>
+          </div>
+          <p id="quickMsg" class="msg"></p>
+        </div>
+        <div class="card">
+          <h2>同步状态</h2>
+          <div class="stats">
+            <div><strong id="pendingCount">0</strong><span>待处理 inbox</span></div>
+            <div><strong id="moduleAvg">0</strong><span>模块平均分</span></div>
+            <div><strong id="taskCount">0</strong><span>待办任务</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>九模块状态</h2>
+        <div id="modulesGrid" class="modules-grid"></div>
+      </section>
+
+      <section class="grid two">
+        <div class="card">
+          <h2>最近记录</h2>
+          <div id="inboxList" class="list"></div>
+        </div>
+        <div class="card">
+          <h2>任务池</h2>
+          <div id="taskList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>库存货架</h2>
+        <p class="muted">这里会读取云端 items / inventory_batches。现在可以先从一句话记录进入 inbox。</p>
+        <div id="inventoryShelves" class="shelves"></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
