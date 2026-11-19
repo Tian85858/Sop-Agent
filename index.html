@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>个人SOP Agent Cloud</title>
+  <title>个人SOP管理工作台</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=task-deck-9" />
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <h1>个人SOP Agent</h1>
-      <p>云端同步版 · 手机电脑都能用</p>
+    <h1>个人SOP管理工作台</h1>
+    <div class="topbar-right">
+      <nav id="topNav" class="top-nav hidden" aria-label="一级菜单">
+        <a href="#home" data-page="homePage">首页</a>
+        <a href="#vision" data-page="visionPage">愿景与多巴胺SOP</a>
+        <a href="#energy" data-page="energyPage">能量结界与身体修复</a>
+        <a href="#cache" data-page="cachePage">缓存记录</a>
+        <a href="#memory" data-page="memoryPage">记忆 Memory</a>
+      </nav>
+      <button id="logoutBtn" class="ghost hidden">退出</button>
     </div>
-    <button id="logoutBtn" class="ghost hidden">退出</button>
   </header>
 
   <main class="page">
-    <section id="authView" class="card">
+    <section id="authView" class="paper-card auth-card">
       <h2>登录 / 注册</h2>
-      <p class="muted">使用 Supabase 云端同步。第一次使用会自动注册账号。</p>
+      <p class="muted">登录状态会在本设备保留 3 天。公共设备请记得退出。</p>
       <label>邮箱</label>
       <input id="emailInput" type="email" placeholder="you@example.com" autocomplete="email" />
       <label>密码</label>
@@ -32,62 +38,109 @@
     </section>
 
     <section id="appView" class="hidden">
-      <section id="recordSection" class="grid hero">
-        <div class="card">
-          <h2>一句话记录</h2>
-          <p class="muted">先进入云端 inbox，后续由 Agent 归类到库存、任务、健康、学习、决策等模块。</p>
-          <div class="quick-input">
-            <input id="quickInput" placeholder="例：买了D3+K2一瓶，1000IU，明天开始吃" />
-            <button id="quickSaveBtn">保存</button>
+      <section id="homePage" class="page-view active-view">
+        <section id="homeSection" class="paper-card record-hero">
+          <div class="record-head">
+            <h2>今天也按你的节奏，把生活往前推一点。</h2>
           </div>
-          <p id="quickMsg" class="msg"></p>
-        </div>
-        <div class="card">
-          <h2>同步状态</h2>
-          <div class="stats">
-            <div><strong id="pendingCount">0</strong><span>待处理 inbox</span></div>
-            <div><strong id="moduleAvg">0</strong><span>模块平均分</span></div>
-            <div><strong id="taskCount">0</strong><span>待办任务</span></div>
+          <div class="record-box">
+            <label for="quickInput">把今天的核心事、库存变化、想法或提醒写在这里</label>
+            <textarea id="quickInput" rows="5" placeholder="例：今天必须完成面膜库存整理；或：买了两盒可复美面膜，2027年3月过期，放浴室柜"></textarea>
+            <div class="record-actions">
+              <span>Enter 提交 · Shift + Enter 换行</span>
+              <button id="quickSaveBtn" aria-label="提交">↗ 提交</button>
+            </div>
+            <p id="agentBridgeNote" class="agent-note hidden">未接入Agent 暂计入缓存记录</p>
+            <p id="quickMsg" class="msg"></p>
           </div>
-        </div>
+        </section>
+
+        <section id="todaySection" class="paper-card today-card hidden">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">今天的任务区</p>
+              <h2>只看今天必须做完的那一件核心事</h2>
+            </div>
+            <span class="soft-pill">低压推进</span>
+          </div>
+          <div id="todayCoreTask" class="today-core"></div>
+        </section>
+
+        <section id="modulesSection" class="paper-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Personal SOP</p>
+              <h2>Personal SOP</h2>
+            </div>
+          </div>
+          <div id="modulesGrid" class="modules-grid"></div>
+        </section>
       </section>
 
-      <section id="modulesSection" class="card">
-        <h2>九模块状态</h2>
-        <div id="modulesGrid" class="modules-grid"></div>
+      <section id="modulePage" class="page-view hidden">
+        <section class="paper-card module-detail-card">
+          <button id="moduleBackBtn" class="secondary small-btn">返回 Personal SOP</button>
+          <p id="modulePageEyebrow" class="eyebrow">模块页面</p>
+          <h2 id="modulePageTitle">模块</h2>
+          <p id="modulePageHint" class="muted">这里是该模块的独立页面。你后面给具体要求后，我会继续补充专属交互和样式。</p>
+          <div id="modulePageBody" class="module-page-body"></div>
+        </section>
       </section>
 
-      <section id="workbenchSection" class="grid two">
-        <div class="card">
+      <section id="visionPage" class="page-view hidden">
+        <section id="visionSection" class="paper-card menu-section">
+          <h2>愿景与多巴胺SOP</h2>
+          <p class="muted">用于承接长期目标、奖励机制、阶段性愿景和让生活继续往前推的动力设计。</p>
+        </section>
+      </section>
+
+      <section id="energyPage" class="page-view hidden">
+        <section id="energySection" class="paper-card menu-section">
+          <h2>能量结界与身体修复（防熔断）</h2>
+          <p class="muted">用于承接睡眠、运动、恢复、风险预警和“不要把自己推爆”的防熔断机制。</p>
+        </section>
+      </section>
+
+      <section id="cachePage" class="page-view hidden">
+        <section id="cacheSection" class="paper-card cache-card menu-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">缓存记录</p>
+              <h2>待结构化与待归类内容</h2>
+            </div>
+            <span id="cacheCount" class="soft-pill">0 条待处理</span>
+          </div>
+          <p class="muted">这里保存所有暂时没有 Agent 介入处理的原始录入。之后可自动/手动批量归类到 9 个模块，并保留去处记录供你微调确认。</p>
+          <div class="cache-toolbar">
+            <button id="clearProcessedBtn" class="secondary">清空已归档记录</button>
+            <span>未处理内容不会被清空。</span>
+          </div>
+          <div id="pendingQueue" class="cache-list"></div>
+        </section>
+
+        <section class="paper-card">
           <h2>最近记录</h2>
           <div id="inboxList" class="list"></div>
-        </div>
-        <div class="card">
-          <h2>任务池</h2>
-          <div id="taskList" class="list"></div>
-        </div>
+        </section>
       </section>
 
-      <section id="inventorySection" class="card">
-        <h2>库存货架</h2>
-        <p class="muted">这里会读取云端 items / inventory_batches。现在可以先从一句话记录进入 inbox。</p>
-        <div id="inventoryShelves" class="shelves"></div>
+      <section id="memoryPage" class="page-view hidden">
+        <section id="memorySection" class="paper-card menu-section">
+          <h2>记忆 Memory</h2>
+          <p class="muted">用于沉淀个人偏好、长期规则、关键事实和跨对话快速理解你的总记忆。</p>
+        </section>
       </section>
     </section>
   </main>
 
   <nav id="bottomNav" class="bottom-nav hidden" aria-label="手机快捷导航">
-    <a href="#recordSection">记录</a>
-    <a href="#inventorySection">库存</a>
-    <a href="#workbenchSection">任务</a>
-    <a href="#modulesSection">模块</a>
+    <a href="#home" data-page="homePage">首页</a>
+    <a href="#vision" data-page="visionPage">愿景</a>
+    <a href="#energy" data-page="energyPage">能量</a>
+    <a href="#cache" data-page="cachePage">缓存</a>
+    <a href="#memory" data-page="memoryPage">记忆</a>
   </nav>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=task-deck-9"></script>
 </body>
 </html>
-
-
-
-
-
 
