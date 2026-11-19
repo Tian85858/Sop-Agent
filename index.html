@@ -32,7 +32,7 @@
     </section>
 
     <section id="appView" class="hidden">
-      <section class="grid hero">
+      <section id="recordSection" class="grid hero">
         <div class="card">
           <h2>一句话记录</h2>
           <p class="muted">先进入云端 inbox，后续由 Agent 归类到库存、任务、健康、学习、决策等模块。</p>
@@ -52,12 +52,12 @@
         </div>
       </section>
 
-      <section class="card">
+      <section id="modulesSection" class="card">
         <h2>九模块状态</h2>
         <div id="modulesGrid" class="modules-grid"></div>
       </section>
 
-      <section class="grid two">
+      <section id="workbenchSection" class="grid two">
         <div class="card">
           <h2>最近记录</h2>
           <div id="inboxList" class="list"></div>
@@ -68,7 +68,7 @@
         </div>
       </section>
 
-      <section class="card">
+      <section id="inventorySection" class="card">
         <h2>库存货架</h2>
         <p class="muted">这里会读取云端 items / inventory_batches。现在可以先从一句话记录进入 inbox。</p>
         <div id="inventoryShelves" class="shelves"></div>
@@ -76,6 +76,18 @@
     </section>
   </main>
 
+  <nav id="bottomNav" class="bottom-nav hidden" aria-label="手机快捷导航">
+    <a href="#recordSection">记录</a>
+    <a href="#inventorySection">库存</a>
+    <a href="#workbenchSection">任务</a>
+    <a href="#modulesSection">模块</a>
+  </nav>
   <script type="module" src="app.js"></script>
 </body>
 </html>
+
+
+
+
+
+

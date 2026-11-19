@@ -124,11 +124,11 @@ async function saveQuick() {
     module_guess: moduleGuess,
     related_modules: [moduleGuess],
     status: 'pending',
-    structured_json: { local_guess: moduleGuess }
+    structured_json: { local_guess: moduleGuess, agent_status: 'planned_later' }
   });
   if (error) return setMsg('quickMsg', error.message);
   $('quickInput').value = '';
-  setMsg('quickMsg', '已同步到云端 inbox。');
+  setMsg('quickMsg', '已保存到云端 inbox。后续再接 Agent 自动归档。');
   await refreshAll();
 }
 
@@ -257,3 +257,6 @@ await handleSession(data.session);
 supabase.auth.onAuthStateChange((_event, session) => {
   handleSession(session);
 });
+
+
+
